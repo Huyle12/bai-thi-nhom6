@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MucGungApp.Views.HomeView"
+    xmlns:templates="clr-namespace:MucGungApp.Views.Templates"
+    xmlns:viewmodels="clr-namespace:MucGungApp.ViewModels"
+    >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ProductItemTemplate">
+                <templates:ProductItemTemplate />
+            </DataTemplate>
+
+           
+
+            <templates:ProductItemTemplateSelector
+                x:Key="ProductItemTemplateSelector"
+                ProductItemTemplate="{StaticResource ProductItemTemplate}"
+                />
+
+            <Color x:Key="PageBackgroundColor">#EBEAEF</Color>
+
+            <Style x:Key="SectionContainerStyle" TargetType="Grid">
+                <Setter Property="Margin" Value="12"/>
+            </Style>
+
+            <Style x:Key="TitleTextStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="FontFamily" Value="Fallingsky"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HeightRequest" Value="60"/>
+                <Setter Property="Margin" Value="12"/>
+
+
+            </Style>
+
+            <Style x:Key="ImageStyle" TargetType="Image">
+                <Setter Property="HeightRequest" Value="100"/>
+                <Setter Property="WidthRequest" Value="100"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="Margin" Value="12"/>
+               
+            </Style>
+
+
+            <Color x:Key="SearchBarColor">#F9F9F9</Color>
+           
+
+            <Style x:Key="DanhsachStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="TextColor" Value="Black"/>    
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontFamily" Value="Fallingsky"/>
+
+            </Style>
+
+
+            <Style x:Key="ProductListContainerStyle" TargetType="ScrollView">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="Margin" Value="12"/>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <viewmodels:HomeViewModel/>
+    </ContentPage.BindingContext>
+    <Grid
+        RowDefinitions="100, 60, *"
+        BackgroundColor="{StaticResource PageBackgroundColor}">
+
+        <Grid
+            ColumnDefinitions="Auto, *"
+            Style="{StaticResource SectionContainerStyle}">
+            <Label
+                Grid.ColumnSpan="1"
+                Text="HUẾ GOURMET"
+                Style="{StaticResource TitleTextStyle}"/>
+            
+             <Image 
+                Grid.Column="2"
+                Style="{StaticResource ImageStyle}"
+                Source="logo.jpg" />
+   
+
+        </Grid>
+
+
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="*, Auto"
+            Style="{StaticResource SectionContainerStyle}">
+           
+                <Label
+                    Text="Danh sách sản phẩm"
+                    Style="{StaticResource DanhsachStyle}"/>
+            
+
+
+        </Grid>
+
+        <ScrollView
+            Grid.Row="2"
+            Style="{StaticResource ProductListContainerStyle}">
+            <StackLayout
+                BindableLayout.ItemsSource="{Binding Products}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <templates:ProductItemTemplate/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+        </ScrollView>
+    </Grid>
+</ContentPage>
